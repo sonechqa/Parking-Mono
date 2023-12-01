@@ -20,3 +20,9 @@ export default {
     },
 };
 </script>
+
+<style>
+.mainLayout {
+    margin-bottom: 50px;
+}
+</style>

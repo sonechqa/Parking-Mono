@@ -15,7 +15,8 @@ class ClientsController extends Controller
             ->first();
         
         $cars = DB::table('cars')
-            ->select('id', 'brand', 'model', 'body_color', 'state_number_RF', 'status', 'owner_id')
+            ->select('cars.id', 'brand', 'model', 'body_color', 'state_number_RF', 'status', 'owner_id', 'clients.full_name as full_name')
+            ->join('clients', 'clients.id', '=', 'cars.owner_id')
             ->where('owner_id', $req->get('owner_id'))
             ->get();
 
@@ -23,9 +24,24 @@ class ClientsController extends Controller
     }
 
     public function updateClient(Request $req) {
-        $client = DB::table('clients')->where('clients.id', $req->get('id'))
-            ->update(['full_name' => $req->get('Name'),  'gender' => $req->get('Gender'),
-                'phone_number' => $req->get('Phone_number'), 'address' => $req->get('Address')]);
+        $updatedClient = DB::table('clients')->where('clients.id', $req->get('id'))
+            ->update(['full_name' => $req->get('full_name'),  'gender' => $req->get('gender'),
+                'phone_number' => $req->get('phone_number'), 'address' => $req->get('address')]);
+    }
+
+    public function create(Request $req) {
+        return Inertia::render('Create');
+    }
+
+    public function saveClient(Request $req) {
+        $client = DB::table('clients')->insert(['full_name' => $req->get('full_name'),  'gender' => $req->get('gender'),
+        'phone_number' => $req->get('phone_number'), 'address' => $req->get('address')]);
+    }
+
+    public function getClients(Request $req) {
+        $input = $req->get('input');
+        $clients = DB::table('clients')->where('full_name', 'LIKE', $input.'%')->get();
+        return $clients;
     }
 }
 

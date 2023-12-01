@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <h1 class="header__title">
+        <h1 class="header__title va-h3">
             <a href="/" class="header__link">Автостоянка</a>
         </h1>
     </div>
@@ -15,8 +15,7 @@ export default {
 <style>
 .header {
     background-color: black;
-    font-size: 20px;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     margin-bottom: 50px;
 }

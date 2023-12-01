@@ -12,7 +12,7 @@ class MainController extends Controller
         $cars = DB::table('cars')
             ->select('clients.full_name as full_name', 'owner_id', 'cars.id', 'brand', 'model', 'state_number_RF')
             ->join('clients', 'clients.id', '=', 'cars.owner_id')
-            ->where('status', '=', true)
+            // ->where('status', '=', true)
             ->paginate(2);
         return Inertia::render('Home', ['cars' => $cars]);
     }
